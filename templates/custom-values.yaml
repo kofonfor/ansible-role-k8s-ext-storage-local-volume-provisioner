@@ -3,3 +3,6 @@ classes:
   # Path on the host where local volumes of this storage class are mounted
   # under.
   hostDir: /var/lib/k8s/{{ storage_class_name }}
+
+common:
+  namespace: {{ k8s_namespace }}
