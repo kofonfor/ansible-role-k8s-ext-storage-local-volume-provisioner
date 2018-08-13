@@ -5,7 +5,7 @@
   template: src=storageclass.yml dest=/root/storageclass.yml
 
 - name: create a storageclass
-  shell: kubectl apply -f /root/storageclass.yml --namespace={{ k8s_namespace }}
+  shell: export KUBECONFIG=/etc/kubernetes/admin.conf && kubectl apply -f /root/storageclass.yml --namespace={{ k8s_namespace }}
 
 - name: put /root/custom-values.yaml
   template: src=custom-values.yaml dest=/root/custom-values.yaml
@@ -18,7 +18,7 @@
   with_items: "{{ k8s_local_storage_pv_names }}"
 
 - name: generate a provisioner YAML
-  shell: cd /root/external-storage/local-volume && helm template ./helm/provisioner --values /root/custom-values.yaml > /root/provisioner_generated.yaml
+  shell: cd /root/external-storage/local-volume && export KUBECONFIG=/etc/kubernetes/admin.conf && helm template ./helm/provisioner --values /root/custom-values.yaml > /root/provisioner_generated.yaml
 
 - name: create a provisioner
-  shell: kubectl apply -f /root/provisioner_generated.yaml --namespace={{ k8s_namespace }}
+  shell: export KUBECONFIG=/etc/kubernetes/admin.conf && kubectl apply -f /root/provisioner_generated.yaml --namespace={{ k8s_namespace }}
