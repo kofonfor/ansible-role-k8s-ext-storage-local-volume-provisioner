@@ -2,7 +2,7 @@ classes:
 - name: {{ storage_class_name }} # Defines name of storage classe.
   # Path on the host where local volumes of this storage class are mounted
   # under.
-  hostDir: /var/lib/k8s/{{ storage_class_name }}
+  hostDir: /mnt/disks
 
 common:
   namespace: {{ k8s_namespace }}
